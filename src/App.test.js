@@ -56,6 +56,11 @@ test("renders counter display", () => {
 });
 
 // testing of the state
-test("counter starts at 0", () => {});
+test("counter starts at 0", () => {
+  const wrapper = setup();
+  // make sure the state is defined in this.state = under constructor
+  const initialCounterState = wrapper.state("counter");
+  expect(initialCounterState).toBe(0);
+});
 
 test("clicking button increments counter display", () => {});
