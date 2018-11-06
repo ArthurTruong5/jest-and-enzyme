@@ -9,6 +9,10 @@ Enzyme.configure({
   adapter: new EnzymeAdapter()
 });
 
+// We used Enzyme shallow() function to render a component. The shallow component it renders the component without rendering the children component. It just puts placeholders.
+// Tested that required DOM elements were rendered using find()
+// Tested state usingEnzymes setState() and state()
+
 /**
  * Factory function to create a ShallowWrapper for the App Component
  * @function setup
@@ -40,10 +44,12 @@ const setup = (props = {}, state = null) => {
  * @returns {ShallowWrapper}
  */
 
+// This is how to create a data-test and getting the values. Its good for reuseability
 const findByTestAttr = (wrapper, val) => {
   return wrapper.find(`[data-test="${val}"]`);
 };
 
+// We want to make sure everything renders inside the div element correctly with no errors
 test("renders without errors", () => {
   const wrapper = setup();
   // <App /> = component-app
@@ -51,6 +57,7 @@ test("renders without errors", () => {
   expect(appComponent.length).toBe(1);
 });
 
+// We want to make sure we have a button
 test("renders increment button", () => {
   const wrapper = setup();
   // <App /> = component-app
@@ -58,6 +65,7 @@ test("renders increment button", () => {
   expect(button.length).toBe(1);
 });
 
+// we want to make sure we have a display
 test("renders counter display", () => {
   const wrapper = setup();
   // <App /> = component-app
@@ -65,7 +73,7 @@ test("renders counter display", () => {
   expect(counterDisplay.length).toBe(1);
 });
 
-// testing of the state
+// testing of the state. We want to make sure that the counter starts with 0 by checking the state
 test("counter starts at 0", () => {
   const wrapper = setup();
   // make sure the state is defined in this.state = under constructor
@@ -73,8 +81,10 @@ test("counter starts at 0", () => {
   expect(initialCounterState).toBe(0);
 });
 
+// We want to make sure that the button
 test("clicking button increments counter display", () => {
-  const counter = 10;
+  // We simulate the counter. For example if the counter starts at 7, we want it to increment to 8.
+  const counter = 7;
   const wrapper = setup(null, { counter });
 
   // Find button and click
@@ -86,3 +96,9 @@ test("clicking button increments counter display", () => {
   const counterDisplay = findByTestAttr(wrapper, "counter-display");
   expect(counterDisplay.text()).toContain(counter + 1);
 });
+
+// 1. Set up Enzyme and Write Test
+// - import enzyme and enzyme adapter and config with Enzyme config
+// - check
+// - it will fail because no test was found
+//
